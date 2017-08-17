@@ -6,6 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+//引入数据库配置文件
+var setting= require('./setting') ;
+//临时存放一些数据
+var flash=require('connect-flash');
+//支持会话
+var session=require('express-session');
+//吧回话保存到mongodb里面去
+var Mongostore=require('connect-mongo')(session);
 var app = express();
 
 // view engine setup
@@ -19,6 +27,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//使用flash
+app.use(flash());
+//将session保存在mongodb里面
+app.use(session({
+  secret:"haoxiaofei",
+      key:setting.db,
+        cookie:{maxAge:30*24*60*60*1000},
+    store:new Mongostore({
+        url:'mongodb://localhost/haoxiaofei'
+    }),
+    resave:false,
+    saveUninitialized:true
+
+})),
 
 routes(app)
 

@@ -22,7 +22,7 @@ module.exports = function(app){
     })
     //发表页面
     app.get('/post',function(req,res){
-        res.render('login',{post:'发布文章'});
+        res.render('post',{title:'发布文章'});
     })
     //发表行为
     app.post('/post',function (req,res) {
