@@ -31,11 +31,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
 //将session保存在mongodb里面
 app.use(session({
-  secret:"haoxiaofei",
-      key:setting.db,
-        cookie:{maxAge:30*24*60*60*1000},
+  secret:"haoxiaofei",//
+      key:setting.db,//设置值
+        cookie:{maxAge:30*24*60*60*1000},//生存周期
     store:new Mongostore({
-        url:'mongodb://localhost/haoxiaofei'
+        url:'mongodb://localhost/haoxiaofei'//连接数据库中的‘haoxiuaofei’数据库
     }),
     resave:false,
     saveUninitialized:true
